@@ -1,0 +1,38 @@
+group 'com.com'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+buildscript {
+    ext.annotations_version = '15.0'
+
+    ext.junit_version = '5.0.1'
+    ext.junit_platform_version = '1.0.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly group: 'org.jetbrains', name: 'annotations', version: "$annotations_version"
+
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "$junit_version"
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "$junit_version"
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: "$junit_version"
+    testCompile group: 'org.junit.platform', name: 'junit-platform-launcher', version: "$junit_platform_version"
+}
+
+task javadocJar(type: Jar) {
+    group = 'publish'
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    group = 'publish'
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
